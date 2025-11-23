@@ -2,6 +2,12 @@
 
 This project demonstrates how to remix 1 to 5 images using Google Generative AI.
 
+It now also includes a postcard-style pipeline that:
+
+-   Analyzes two or more reference style images (e.g., postcards) to summarize the desired look.
+-   Combines that summary with a base prompt and requests user approval.
+-   Applies the approved style prompt to a list of target photos.
+
 ## Setup
 
 1.  **Clone the repository:**
@@ -57,3 +63,23 @@ uv run python src/mix_images.py -i images/man.jpeg -i images/cap.jpeg -i images/
 ```bash
 uv run python src/mix_images.py -i images/man.jpeg -i images/cap.jpeg --prompt "Remix these two images." --output-dir my_custom_output
 ```
+
+## Style pipeline for postcard-like outputs
+
+Use `src/style_pipeline.py` to summarize two or more reference style images and restyle a batch of photos with user approval of the generated prompt.
+
+```bash
+uv run python src/style_pipeline.py \
+  --style-image images/postcard_a.jpeg \
+  --style-image images/postcard_b.jpeg \
+  --photo images/vacation_1.jpeg \
+  --photo images/vacation_2.jpeg \
+  --base-prompt "Turn each photo into a vintage travel postcard layout with matching typography." \
+  --output-dir styled_output
+```
+
+The script will:
+
+1.  Generate a concise bullet list describing the shared style of the reference postcards.
+2.  Present the combined style-aware prompt for approval before any image generation.
+3.  Apply the approved prompt to each photo, writing results to per-photo folders inside `styled_output/`.
