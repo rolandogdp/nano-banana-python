@@ -83,3 +83,13 @@ The script will:
 1.  Generate a concise bullet list describing the shared style of the reference postcards.
 2.  Present the combined style-aware prompt for approval before any image generation.
 3.  Apply the approved prompt to each photo, writing results to per-photo folders inside `styled_output/`.
+
+## Streamlit UI
+
+Launch a simple browser-based UI to upload images, enter an optional prompt, and remix them with the Gemini model:
+
+```bash
+uv run streamlit run src/ui_app.py
+```
+
+Make sure `GEMINI_API_KEY` is set in your environment before starting the app.
